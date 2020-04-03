@@ -1,4 +1,4 @@
-# Examples
+# 使い方
 
-## tqmd and ThreadPoolExecutor
-   This example shows , how to display a progress bar on screen to show the status of threads.
+## tqmd と ThreadPoolExecutor
+   tqmdとThreadPoolExecutorを使って、Threadの実行進捗状況を表示する　

@@ -1,7 +1,6 @@
 #/bin/python
 '''
-This example shows how to use tqmd with threadpool
-you can see more in this website about tqmd
+tqmdの使い方、詳しく下記URLへ確認してください。
  [ https://tqdm.github.io/docs/tqdm/ ]
 '''
 import threading
