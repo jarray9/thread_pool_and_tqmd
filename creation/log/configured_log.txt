@@ -1,0 +1,5 @@
+2020-04-10 11:36:01,020 - d:\Jerry\Program\examples\creation\logging_example.py - DEBUG - Debug message.
+2020-04-10 11:36:01,022 - d:\Jerry\Program\examples\creation\logging_example.py - INFO - Infor message.
+2020-04-10 11:36:01,023 - d:\Jerry\Program\examples\creation\logging_example.py - WARNING - Warning message.
+2020-04-10 11:36:01,026 - d:\Jerry\Program\examples\creation\logging_example.py - ERROR - Error message.
+2020-04-10 11:36:01,028 - d:\Jerry\Program\examples\creation\logging_example.py - CRITICAL - Critical message.

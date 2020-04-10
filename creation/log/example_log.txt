@@ -1,0 +1,10 @@
+2020-04-08 11:53:44,955 [10] This is a debug level log.
+2020-04-08 11:53:44,956 [20] This is a info log, if you set level to warning, you will not see this log.
+2020-04-08 11:53:44,957 [30] This is a warning, if you set level to error, you will not see this log
+2020-04-08 11:53:44,957 [40] This is a error, if you set level to critical, you will not see this log
+2020-04-08 11:53:44,958 [50] This is a critical.
+2020-04-08 11:56:10,647 [DEBUG] This is a debug level log.
+2020-04-08 11:56:10,648 [INFO] This is a info log, if you set level to warning, you will not see this log.
+2020-04-08 11:56:10,648 [WARNING] This is a warning, if you set level to error, you will not see this log
+2020-04-08 11:56:10,649 [ERROR] This is a error, if you set level to critical, you will not see this log
+2020-04-08 11:56:10,650 [CRITICAL] This is a critical.
