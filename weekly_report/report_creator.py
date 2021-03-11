@@ -3,23 +3,18 @@
 
 import os
 import const
-from openpyxl import Workbook
-from openpyxl import worksheet
+import common
+import excel_handler as ex
+from datetime import date
 
 
-def add_sheet(wb: Workbook, name: str):
-    work_sheet = wb.create_sheet(name)
-    work_sheet.append(const.excel_header)
-
-
-def init_report():
-    wb = Workbook()
-    sheet1 = wb.active
-    sheet1.title = const.report_sheet_name
+def init_report_file():
     for name in const.members:
-        add_sheet(wb, name)
-    wb.save(filename=const.report_file_name)
+        file_name = os.path.join(const.file_path, f"{name}".xlsx)
+        if not os.path.exists(file_name):
+            ex.init_report(file_name)
 
 
-if not os.path.exists(const.report_file_name):
-    init_report()
+if __name__ == "main":
+    if common.is_report_day():
+        pass

@@ -4,23 +4,21 @@
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
 import const
+import pandas as pd
 
-wb = Workbook()
+pf = pd.DataFrame()
+for name in const.members:
+    pf.append(pd.read_excel(f"{name}.xlsx"))
 
-dest_file_name = "weekly_report.xlsx"
 
-header = [r"Ticket_No", r"Task_Title", r"Stats_Description", r"Input_Date"]
-
-ws1 = wb.active
-ws1.title = const.member_qin
-ws1.append(header)
-
-ws2 = wb.create_sheet(title=const.member_ren)
-ws2.append(header)
-
-ws3 = wb.create_sheet(title=const.member_jiang)
-ws3.append(header)
-
-wb.save(filename=dest_file_name)
-
+def init_report(file_name: str):
+    wb = Workbook()
+    sheet = wb.active
+    sheet.append(const.excel_header)
+    for x in range(10):
+        if x % 2 == 0:
+            sheet.append(const.excel_content)
+        else:
+            sheet.append(const.excel_content_2)
+    wb.save(filename=file_name)
 
