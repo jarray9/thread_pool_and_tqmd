@@ -15,6 +15,11 @@ def init_report_file():
             ex.init_report(file_name)
 
 
-if __name__ == "main":
-    if common.is_report_day():
+def create_report():
+    init_report_file()
+    if common.is_report_day(const.Weekday.Wednesday):
         pass
+
+
+if __name__ == "main":
+    create_report()
