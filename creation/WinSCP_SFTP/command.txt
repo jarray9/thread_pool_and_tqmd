@@ -1,0 +1,18 @@
+# Connect
+open sftp://user:password@server_name/ -hostkey="ssh-rsa 2048 xxxxxxx..="
+# Change remote directory
+cd /home/user/send
+# Download file to the  local directory c:\
+get examplefile.txt c:\
+
+# Change remote directory
+cd /home/user/recv
+# Upload file to receive directory
+put d:\examplefile.txt
+# Disconnect
+close
+# Exit WinSCP
+exit
+
+
+
