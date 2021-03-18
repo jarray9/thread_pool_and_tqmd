@@ -1,7 +1,17 @@
+Function WriteLog
+{
+    param(
+    [string]$LogFileName,
+    [string]$LogContent
+    )
+    Add-Content $LogFileName -Value $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")" "$LogContent
+}
 try
 {
     # Load WinSCP .NET assembly
     Add-Type -Path "WinSCPnet.dll"
+
+    $LogFileName = "C:\temp\sftp\log"
 
     # Setup session options
     $sessionOptions = New-Object WinSCP.SessionOptions -Property @{
@@ -9,6 +19,7 @@ try
         HostName = "example.com"
         UserName = "user"
         Password = "mypassword"
+        SshPrivatekeyPath = "C:\temp\sftp\.ssh\id_rsa.ppk"
         SshHostKeyFingerprint = "ssh-rsa 2048 xxxxxxxxxxx...="
     }
 
@@ -34,14 +45,16 @@ try
         # Print results
         foreach ($transfer in $transferResult.Transfers)
         {
-            Write-Host "Upload of $($transfer.FileName) succeeded"
+            WriteLog $LogFileName, "Upload of "$line" successed"
+#            Write-Host "Upload of $($transfer.FileName) succeeded"
         }
 
         # Upload files in a list
         $lines = Get-Content "list.txt"
         foreach ($line in $lines)
         {
-            Write-Host "Upload $line ..."
+            WriteLog $LogFileName, $line
+#            Write-Host "Upload $line ..."
             $session.PutFiles($line, $remotePath).Check()
         }
 
@@ -54,7 +67,8 @@ try
         {
             # Resolve actual file name by removing the .done extension
             $remoteFilePath = $fileInfo.FullName -replace ".done$", ""
-            Write-Host "Downloading $remoteFilePath ..."
+            WriteLog $LogFileName, "Downloading "$remoteFilePath"..."
+#            Write-Host "Downloading $remoteFilePath ..."
             # Download and delete
             $session.GetFiles([WinSCP.RemotePath]::EscapeFileMask($remoteFilePath), $localPath + "\*", $True).Check()
             # Delete ".done" file
@@ -71,6 +85,7 @@ try
 }
 catch
 {
-    Write-Host "Error: $($_.Exception.Message)"
+    WriteLog($LogFileName, "Error: $($_.Exception.Message)")
+#    Write-Host "Error: $($_.Exception.Message)"
     exit 1
 }
