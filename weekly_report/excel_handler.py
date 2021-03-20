@@ -1,30 +1,33 @@
 #!/user/bin/python
 # -*- encoding : utf-8 -*-
 
-from openpyxl import Workbook
-from openpyxl.utils import get_column_letter
 import openpyxl
-import const
+from openpyxl import Workbook
 import pandas as pd
+from openpyxl.utils import get_column_letter
 
-pf = pd.DataFrame()
-for name in const.members:
-    pf.append(pd.read_excel(f"{name}.xlsx"))
+import const
+from const import File
+
+
+def init_DataFrame():
+    return pd.DataFrame()
 
 
 def init_report(file_name: str):
+    """Create data of report for test."""
     wb = Workbook()
     sheet = wb.active
-    sheet.append(const.excel_header)
+    sheet.append(File.header)
     for x in range(10):
         if x % 2 == 0:
-            sheet.append(const.excel_content)
+            sheet.append(File.content1)
         else:
-            sheet.append(const.excel_content_2)
+            sheet.append(File.content2)
     wb.save(filename=file_name)
 
 
-def read_excel_to_dataframe(file_name, sort_by=const.excel_header[2]):
+def read_excel_to_dataframe(file_name, sort_by=File.header[1]):
     try:
         df = pd.read_excel(file_name)
         return df.sort_values(by=[sort_by])
@@ -37,8 +40,8 @@ def read_excel_to_dataframe(file_name, sort_by=const.excel_header[2]):
 def read_excel_file(file_name):
     try:
         wb = openpyxl.load_workbook(file_name=file_name)
-        if const.default_sheet_name in wb.sheetnames:
-            return wb[const.default_sheet_name]
+        if "sheet1" in wb.sheetnames:
+            return wb[File.sheet_name]
         else:
             raise Exception(f"Expected sheet name does not exist. {file_name}")
     except FileNotFoundError:
@@ -51,4 +54,6 @@ def merge_content(data_frame_list):
     """
     Concat multiple dataframe into 1
     """
-    return pd.concat(data_frame_list)
+    df = pd.concat(data_frame_list, ignore_index=True)
+    new_df = df.drop(df[(df.res == const.status_ok) & (df.ステータス == const.status_done)].index)
+    return new_df.reset_index(drop=True)
